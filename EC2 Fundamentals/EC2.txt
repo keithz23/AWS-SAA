@@ -7,6 +7,9 @@ It mainly consists in the capability of:
 -Distributing traffic with Load Balancers (ELB).
 -Scaling the number of virtual machines according to the demand (Auto Scaling Groups).
 -Knowing EC2 is fundamental to understand how Cloud works.
+
+##################################################################################
+
 #1. EC2 Sizing and Configuration options.
 -Operating System (OS): Linux, Windows or MacOS.
 -How much compute power & cores (CPU).
@@ -17,6 +20,9 @@ It mainly consists in the capability of:
 -Network Card: speed of the card, Public IP address.
 -Firewall: Security Groups.
 -Bootstrap Script (configure at first launch): EC2 User Data.
+
+##################################################################################
+
 #2. EC2 User Data
 -It is possible to bootstrap an EC2 instance at launch with a script.
 -The script is called EC2 User Data.
@@ -28,3 +34,93 @@ EC2 User Data can be used to:
 -Downloading common file from the internet.
 -Anything you can think of.
 The EC2 User Data Script run with the root user.
+
+##################################################################################
+
+#3. EC2 Instance Types
+- AWS has the following nameing convention:
+example: m5.2xlarge
+-m: instance class (m = general purpose).
+-5: generation (AWS improves them overtime).
+-2xlarge: size within the instance class (more CPU, RAM, etc).
+General Purpose:
+- Great for a diversity of workloads such as web servers or code repositories.
+- Balance between:
+  - Compute.
+  - Networking.
+  - Memory.
+
+##################################################################################
+
+Compute Optimized:
+- Great for compute-intensive tasks that require high-performance processors:
+  - Batch processing workloads.
+  - Media transcoding.
+  - Hight performance web servers.
+  - Hight performance computing (HPC).
+  - Scientific modeling and machine learning.
+  - Dedicated gaming servers.
+
+##################################################################################
+
+Memory Optimized:
+- Fast performance for workloads that process large data sets in memory.
+- Use cases;
+  - High performance, relational/non-relational databases.
+  - Distributed web scale cache stores.
+  - In-memory databases optimized for BI (Business Intelligence) applications.
+  - Applications performing real-time processing of big unstructured data.
+
+##################################################################################
+
+Storage Optimized:
+- Great for storage-intensive tasks that require high, sequential read and write access to large data sets on local storage.
+- Use cases:
+  - High frequency online transaction processing (OLTP) databases.
+  - Relational and NoSQL databases.
+  - Cache for in-memory databases (like Redis).
+  - Data warehousing applications.
+  - Distributed file systems.
+#NOTE: Choose the instance type according to your use case. (for example, if your website is database intensive, choose memory optimized instances).
+And for follow up this website for comparing instance types:
+- https://instances.vantage.sh/
+
+##################################################################################
+
+#4. Security Groups
+- Security Groups are the fundamental of network security in AWS.
+- They control how traffic is allowed into or out of our EC2 instance.
+- Security Groups only contains allow rules.
+- Security Groups roles can reference by IP or by security group.
+#For example:
+Has a EC2 instance with a security group called WebServerSG. And this security group manage all traffic to the EC2 instance.
+- Manage the inbound rules to allow HTTP (port 80) and HTTPS (port 443) traffic from anywhere.
+- Manage the outbound rules to allow all traffic to anywhere.
+# Deeper Dive:
+- Security Groups are acting as a "firewall" on EC2 Instances.
+- They regulate:
+  - Access to Ports.
+  - Authorised IP ranges - IPv4 and IPv6.
+  - Control of inbound network (from other to the instance).
+  - Control of outbound network (from the instance to other).
+Protocols: TCP, UDP, ICMP.
+Ports: 0-65535 or specific ports (22 for SSH, 80 for HTTP, 443 for HTTPS, etc).
+Source/Destination: IP address range (CIDR notation) or another security group:
+-For example: 0.0.0.0/0 means anywhere (all IP addresses), 122.x.x.x/32 means a specific IP address.
+# Good to know:
+- Can be attached to multiple instances.
+- Locked down to a region/VPC combination.
+- Does live "outside" the EC2 - if traffic is blocked the EC2 instance won't see it.
+- It's good to maintain one separate security group for SSH access.
+- If your application is not accessible (timeout), then it's a security group issue.
+- If your application gives a "connection refused" error, then it's an application error or it's not launched.
+- All inbound traffic is blocked by default.
+- All inbound traffic is Authorised by default.
+# Classic Ports to know:
+- 22 = SSH (Secure Shell) - log in to a Linux Instance.
+- 21 = FTP (File Transfer Protocol) - upload files into a file share.
+- 22 = SFTP (Secure File Transfer Protocol) - upload files using SSH.
+- 80 = HTTP - access unsecured websites.
+- 443 = HTTPS -- access secured websites.
+- 3389 = RDP (Remote Desktop Protocol) - log into a Windows instance.
+

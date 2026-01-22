@@ -123,4 +123,34 @@ Source/Destination: IP address range (CIDR notation) or another security group:
 - 80 = HTTP - access unsecured websites.
 - 443 = HTTPS -- access secured websites.
 - 3389 = RDP (Remote Desktop Protocol) - log into a Windows instance.
+#NOTE: When connect to your instance, if you get a timeout error, check your security group settings.
+- One EC2 instance can have multiple security groups.
 
+##################################################################################
+
+#5. SSH
+- SSH is a important protocol to connect to Linux EC2 instances.
+- SSH is one of the most important function. Its allow you can control your Linux server from your local computer by command line.
+
+##################################################################################
+
+#6. EC2 instance roles.
+#NOTE: Do not add the AWS configure to the EC2 instance to provide AWS credentials. Instead, use EC2 instance roles for that.
+
+##################################################################################
+
+#7. EC2 instance Purchasing Options
+- On-Demand instances: Short workloads, predictable pricing, pay by the second.
+- Reserved (1 & 3 years)
+  - Reserved instances: Long workloads.
+  - Convertible reserved instances: long workloads with flexibility.
+- Saving plans (1 & 3 years): long workloads with flexibility. (it's means that you can change instance type, region, OS, etc.).
+- Spot instances: Short workloads, cheap, can lose the instance with 2 minutes warning.
+- Dedicated Hosts: Book an entire physical server, control instance placement, help meet compliance requirements.
+- Dedicated Instance: No other customers will share the same hardware, but don't have control over instance placement.
+- Capacity Reservations: Reverse capacity in a specific AZ for any instance type.
+# On-Demand Instances:
+- Pay for what you use:
+  - Linux or Windows: billing per second, minimum of 60 seconds.
+  - All other OS: billing per hour.
+  - Has the highest cost but no upfront payment.
